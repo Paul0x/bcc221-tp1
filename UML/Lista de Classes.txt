@@ -1,0 +1,52 @@
+Classe Usuario
+    int codigo
+    String nome
+    String cpf
+    String email
+    String dtNascimento
+    List<RegistroAgenda> agenda
+    * imprimirMenu
+    * selecionarMenu   
+    
+    -> Classe Administrador
+        * overrirde no selecionarMenu 
+    -> Classe Assistente Administrativo
+        List<RegistroPonto> folhaPonto;
+        * overrirde no selecionarMenu 
+    -> Classe Geral (Cliente)
+        * overrirde no selecionarMenu
+    -> Classe Especialista
+        List<RegistroPonto> folhaPonto;
+        List<RegistroAgenda> agenda;
+        
+========================================================
+Classe RegistroAgenda
+   String data
+   String observacao
+========================================================
+Classe RegistroPagamentoConsulta
+   Double valor;
+   time_t dtPagamento;
+   String nomeCliente;
+========================================================
+Classe RegistroPagamentoConta
+   String descricao;
+   String dtVencimento;
+   String dtPagamento;
+   int tipoConta;
+   double valor;
+========================================================
+Classe RegistroPonto
+   String dtRegistro;
+   String observacao;
+========================================================
+Classe SistemaClinica
+   List<Usuario> usuarios;
+   List<RegistroPagamentoConsulta> pagamentosConsulta;
+   List<RegistroPagamentoConta> pagamentosConsulta;
+   
+    * registrarUsuario()
+    * removerUsuario()
+    * init()
+    * login()
+    * logout()
