@@ -1,6 +1,6 @@
 build/Debug/GNU-Linux/SistemaClinica.o: SistemaClinica.cpp \
  SistemaClinica.h Usuario.h Administrador.h AssistenteAdministrativo.h \
- Especialista.h Usuario.h RegistroPagamentoConta.h
+ Usuario.h Especialista.h RegistroPagamentoConta.h
 
 SistemaClinica.h:
 
@@ -10,8 +10,8 @@ Administrador.h:
 
 AssistenteAdministrativo.h:
 
-Especialista.h:
-
 Usuario.h:
+
+Especialista.h:
 
 RegistroPagamentoConta.h:

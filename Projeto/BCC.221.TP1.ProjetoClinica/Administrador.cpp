@@ -16,3 +16,12 @@ Administrador::Administrador(const Administrador& orig) {
 Administrador::~Administrador() {
 }
 
+void Administrador::imprimirMenu() {
+    cout << "=============================================" << endl;
+    cout << "Bem vindo(a) ao sistema de gerenciamento da clinica odontologica" << endl;
+    cout << "Usuário Logado: " << this->nome << " Tipo: Administrador" << endl;
+    cout << "=============================================" << endl;
+    cout << "Digite:" << endl << "1 - Agenda" << endl << "2 - Receber Consulta" << endl;
+    cout << "3 - Pagamento de Contas" << endl << "4 - Folha de Ponto" << endl;
+    cout << "5 - Gerenciar Usuários" << endl << "6 - Sair" << endl;
+}

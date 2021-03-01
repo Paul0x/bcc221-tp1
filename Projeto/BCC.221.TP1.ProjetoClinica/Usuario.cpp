@@ -56,3 +56,10 @@ string Usuario::getCpf() const {
     return cpf;
 }
 
+void Usuario::imprimirMenu() {
+    cout << "=============================================" << endl;
+    cout << "Bem vindo(a) ao sistema de gerenciamento da clinica odontologica" << endl;
+    cout << "Usuário Logado: " << this->nome << " Tipo: Usuário Coum" << endl;
+    cout << "=============================================" << endl;
+    cout << "Digite:" << endl << "1 - Agenda" << endl << "2 - Sair" << endl;
+}

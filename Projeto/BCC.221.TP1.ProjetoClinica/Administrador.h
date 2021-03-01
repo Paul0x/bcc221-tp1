@@ -14,6 +14,7 @@ public:
     Administrador();
     Administrador(const Administrador& orig);
     virtual ~Administrador();
+    virtual void imprimirMenu();
 private:
 
 };

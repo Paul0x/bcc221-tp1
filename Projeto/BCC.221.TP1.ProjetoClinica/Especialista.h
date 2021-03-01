@@ -16,7 +16,14 @@ public:
     Especialista();
     Especialista(const Especialista& orig);
     virtual ~Especialista();
+    virtual void imprimirMenu();
+    void setAgenda(vector<std::reference_wrapper<RegistroAgenda> > agenda);
+    vector<std::reference_wrapper<RegistroAgenda> > getAgenda() const;
+    void setFolhaPonto(vector<std::reference_wrapper<RegistroPonto> > folhaPonto);
+    vector<std::reference_wrapper<RegistroPonto> > getFolhaPonto() const;
 private:
+    vector<std::reference_wrapper<RegistroAgenda>> agenda;
+    vector<std::reference_wrapper<RegistroPonto>> folhaPonto;
 
 };
 

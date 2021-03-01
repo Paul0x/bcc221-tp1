@@ -26,9 +26,9 @@ public:
     string getEmail() const;
     void setCpf(string cpf);
     string getCpf() const;
-    void imprimirMenu();
+    virtual void imprimirMenu();
     
-private:
+protected:
     string nome;
     string cpf;
     string email;

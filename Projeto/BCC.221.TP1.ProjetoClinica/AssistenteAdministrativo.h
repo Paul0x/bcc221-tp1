@@ -8,12 +8,18 @@
 #ifndef ASSISTENTEADMINISTRATIVO_H
 #define ASSISTENTEADMINISTRATIVO_H
 
-class AssistenteAdministrativo {
+#include "Usuario.h"
+
+class AssistenteAdministrativo: public Usuario{
 public:
     AssistenteAdministrativo();
     AssistenteAdministrativo(const AssistenteAdministrativo& orig);
     virtual ~AssistenteAdministrativo();
+    virtual void imprimirMenu();
+    void setFolhaPonto(vector<std::reference_wrapper<RegistroPonto> > folhaPonto);
+    vector<std::reference_wrapper<RegistroPonto> > getFolhaPonto() const;
 private:
+    vector<std::reference_wrapper<RegistroPonto>> folhaPonto;
 
 };
 

@@ -74,52 +74,52 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/bcc.221.tp1.projetoclinica: ${OBJECTF
 ${OBJECTDIR}/Administrador.o: Administrador.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I. -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Administrador.o Administrador.cpp
+	$(COMPILE.cc) -g -I. -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Administrador.o Administrador.cpp
 
 ${OBJECTDIR}/AssistenteAdministrativo.o: AssistenteAdministrativo.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I. -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/AssistenteAdministrativo.o AssistenteAdministrativo.cpp
+	$(COMPILE.cc) -g -I. -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/AssistenteAdministrativo.o AssistenteAdministrativo.cpp
 
 ${OBJECTDIR}/Especialista.o: Especialista.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I. -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Especialista.o Especialista.cpp
+	$(COMPILE.cc) -g -I. -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Especialista.o Especialista.cpp
 
 ${OBJECTDIR}/RegistroAgenda.o: RegistroAgenda.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I. -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/RegistroAgenda.o RegistroAgenda.cpp
+	$(COMPILE.cc) -g -I. -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/RegistroAgenda.o RegistroAgenda.cpp
 
 ${OBJECTDIR}/RegistroPagamentoConsulta.o: RegistroPagamentoConsulta.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I. -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/RegistroPagamentoConsulta.o RegistroPagamentoConsulta.cpp
+	$(COMPILE.cc) -g -I. -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/RegistroPagamentoConsulta.o RegistroPagamentoConsulta.cpp
 
 ${OBJECTDIR}/RegistroPagamentoConta.o: RegistroPagamentoConta.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I. -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/RegistroPagamentoConta.o RegistroPagamentoConta.cpp
+	$(COMPILE.cc) -g -I. -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/RegistroPagamentoConta.o RegistroPagamentoConta.cpp
 
 ${OBJECTDIR}/RegistroPonto.o: RegistroPonto.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I. -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/RegistroPonto.o RegistroPonto.cpp
+	$(COMPILE.cc) -g -I. -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/RegistroPonto.o RegistroPonto.cpp
 
 ${OBJECTDIR}/SistemaClinica.o: SistemaClinica.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I. -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/SistemaClinica.o SistemaClinica.cpp
+	$(COMPILE.cc) -g -I. -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/SistemaClinica.o SistemaClinica.cpp
 
 ${OBJECTDIR}/Usuario.o: Usuario.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I. -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Usuario.o Usuario.cpp
+	$(COMPILE.cc) -g -I. -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Usuario.o Usuario.cpp
 
 ${OBJECTDIR}/main.o: main.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I. -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
+	$(COMPILE.cc) -g -I. -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
 
 # Subprojects
 .build-subprojects:

@@ -9,7 +9,7 @@
 #define SISTEMACLINICA_H
 
 #include <iostream>
-#include <list>
+#include <vector>
 #include <Usuario.h>
 #include <Administrador.h>
 #include <AssistenteAdministrativo.h>
@@ -23,9 +23,12 @@ public:
     SistemaClinica(const SistemaClinica& orig);
     virtual ~SistemaClinica();
 private:
-    list<Usuario*> usuarios;
-    list<RegistroPagamentoConta> contas;
+    vector<std::reference_wrapper<Usuario>> usuarios;
+    vector<RegistroPagamentoConta> contas;
+    Usuario* currentUsuario;
     void initUsuarios();
+    void initTelaLogin();
+    void initSistema();
 
 };
 
