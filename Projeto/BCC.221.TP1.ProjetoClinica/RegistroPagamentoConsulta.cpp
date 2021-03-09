@@ -16,3 +16,36 @@ RegistroPagamentoConsulta::RegistroPagamentoConsulta(const RegistroPagamentoCons
 RegistroPagamentoConsulta::~RegistroPagamentoConsulta() {
 }
 
+void RegistroPagamentoConsulta::setDataTimestamp(time_t dataTimestamp) {
+    this->dataTimestamp = dataTimestamp;
+    this->data = ctime(&dataTimestamp);
+}
+
+time_t RegistroPagamentoConsulta::getDataTimestamp() const {
+    return dataTimestamp;
+}
+
+void RegistroPagamentoConsulta::setData(string data) {
+    this->data = data;
+}
+
+string RegistroPagamentoConsulta::getData() const {
+    return data;
+}
+
+void RegistroPagamentoConsulta::setNomeCliente(string nomeCliente) {
+    this->nomeCliente = nomeCliente;
+}
+
+string RegistroPagamentoConsulta::getNomeCliente() const {
+    return nomeCliente;
+}
+
+void RegistroPagamentoConsulta::setValor(double valor) {
+    this->valor = valor;
+}
+
+double RegistroPagamentoConsulta::getValor() const {
+    return valor;
+}
+

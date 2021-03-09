@@ -7,6 +7,7 @@
 
 
 #include "RegistroAgenda.h"
+#include "utils.h"
 
 RegistroAgenda::RegistroAgenda() {
 }
@@ -15,5 +16,37 @@ RegistroAgenda::RegistroAgenda(const RegistroAgenda& orig) {
 }
 
 RegistroAgenda::~RegistroAgenda() {
+}
+
+void RegistroAgenda::setObservacao(string observacao) {
+    this->observacao = observacao;
+}
+
+string RegistroAgenda::getObservacao() const {
+    return observacao;
+}
+
+void RegistroAgenda::setData(string data) {
+    this->data = data;
+}
+
+string RegistroAgenda::getHora() const {
+    return hora;
+}
+
+void RegistroAgenda::setHora(string hora) {
+    this->hora = hora;
+}
+
+string RegistroAgenda::getData() const {
+    return data;
+}
+
+time_t RegistroAgenda::getTimestamp() const {
+    return timestamp;
+}
+
+void RegistroAgenda::setTimestamp() {
+    this->timestamp = to_time_t(this->data + " " + this->hora + ":00", false, "%d/%m/%Y %H:%M:%S");
 }
 

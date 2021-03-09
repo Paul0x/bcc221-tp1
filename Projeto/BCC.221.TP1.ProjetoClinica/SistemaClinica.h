@@ -14,8 +14,18 @@
 #include <Administrador.h>
 #include <AssistenteAdministrativo.h>
 #include <Especialista.h>
-
 #include "RegistroPagamentoConta.h"
+#include "RegistroPagamentoConsulta.h"
+#include <functional>
+#include <typeinfo>
+#include <map>
+#include <utils.h>
+#ifdef __cplusplus__
+#include <cstdlib>
+#else
+#include <stdlib.h>
+#endif
+
 using namespace std;
 class SistemaClinica {
 public:
@@ -24,12 +34,20 @@ public:
     virtual ~SistemaClinica();
 private:
     vector<std::reference_wrapper<Usuario>> usuarios;
+    map<time_t, RegistroPagamentoConsulta*> consultas;
     vector<RegistroPagamentoConta> contas;
     Usuario* currentUsuario;
     void initUsuarios();
     void initTelaLogin();
     void initSistema();
-
+    void executarAcaoMenu(string);
+    void initAgendaScreen();
+    void initRecebimentoConsultasScreen();
+    void initPagamentoCoontasScreen();
+    void initFolhaPontoScreen();
+    void initGerenciamentoUsuariosScreen();
+    void inserirRecebimentoConsulta();
+    void listaConsultasRecebidas();
 };
 
 #endif /* SISTEMACLINICA_H */

@@ -8,13 +8,30 @@
 
 #ifndef ADMINISTRADOR_H
 #define ADMINISTRADOR_H
-#include<Usuario.h>
-class Administrador: public Usuario{ 
+#include <Usuario.h>
+#include "RegistroPonto.h"
+#ifdef __cplusplus__
+#include <cstdlib>
+#else
+#include <stdlib.h>
+#endif
+#include <iostream>
+#include <vector>
+#include <functional>
+
+
+class Administrador : public Usuario {
 public:
     Administrador();
     Administrador(const Administrador& orig);
     virtual ~Administrador();
-    virtual void imprimirMenu();
+    virtual string imprimirMenu();
+    
+    const std::string& getNomeClasse() const override
+    {
+      static const std::string nome{"Administrador"};
+      return nome;
+    }
 private:
 
 };

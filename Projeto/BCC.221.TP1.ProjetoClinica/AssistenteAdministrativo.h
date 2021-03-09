@@ -8,16 +8,31 @@
 #ifndef ASSISTENTEADMINISTRATIVO_H
 #define ASSISTENTEADMINISTRATIVO_H
 
+#include <iostream>
+#include <vector>
+#include "RegistroPonto.h"
+#ifdef __cplusplus__
+#include <cstdlib>
+#else
+#include <stdlib.h>
+#endif
 #include "Usuario.h"
+#include <functional>
 
 class AssistenteAdministrativo: public Usuario{
 public:
     AssistenteAdministrativo();
     AssistenteAdministrativo(const AssistenteAdministrativo& orig);
     virtual ~AssistenteAdministrativo();
-    virtual void imprimirMenu();
+    virtual string imprimirMenu();
     void setFolhaPonto(vector<std::reference_wrapper<RegistroPonto> > folhaPonto);
     vector<std::reference_wrapper<RegistroPonto> > getFolhaPonto() const;
+    
+    const std::string& getNomeClasse() const override
+    {
+      static const std::string nome{"AssistenteAdministrativo"};
+      return nome;
+    }
 private:
     vector<std::reference_wrapper<RegistroPonto>> folhaPonto;
 

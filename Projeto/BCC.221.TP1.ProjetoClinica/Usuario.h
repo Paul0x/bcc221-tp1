@@ -26,8 +26,8 @@ public:
     string getEmail() const;
     void setCpf(string cpf);
     string getCpf() const;
-    virtual void imprimirMenu();
-    
+    virtual string imprimirMenu();
+    virtual const std::string& getNomeClasse() const = 0;
 protected:
     string nome;
     string cpf;
