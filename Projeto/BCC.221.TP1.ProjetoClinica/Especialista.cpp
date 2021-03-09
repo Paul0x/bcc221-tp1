@@ -46,14 +46,6 @@ vector<std::reference_wrapper<RegistroAgenda> > Especialista::getAgenda() const 
     return agenda;
 }
 
-void Especialista::setFolhaPonto(vector<std::reference_wrapper<RegistroPonto> > folhaPonto) {
-    this->folhaPonto = folhaPonto;
-}
-
-vector<std::reference_wrapper<RegistroPonto> > Especialista::getFolhaPonto() const {
-    return folhaPonto;
-}
-
 void Especialista::mostrarAgenda() {
     this->sortAgenda();
     system("clear");
@@ -87,6 +79,7 @@ void Especialista::mostrarAgenda() {
             this->removerRegistroAgenda(index);
             break;
         case 4:
+            return;
             break;
 
     }

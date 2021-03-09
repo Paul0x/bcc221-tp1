@@ -8,12 +8,25 @@
 #ifndef REGISTROPONTO_H
 #define REGISTROPONTO_H
 
+#include <iostream>
+#include <string>
+#include <utils.h>
+using namespace std;
 class RegistroPonto {
 public:
     RegistroPonto();
     RegistroPonto(const RegistroPonto& orig);
     virtual ~RegistroPonto();
+    void setObservacao(string observacao);
+    string getObservacao() const;
+    void setTimestamp();
+    time_t getTimestamp() const;
+    void setDtRegistro(string dtRegistro);
+    string getDtRegistro() const;
 private:
+    string dtRegistro;
+    time_t timestamp;
+    string observacao;
 
 };
 

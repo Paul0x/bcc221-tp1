@@ -8,6 +8,7 @@
 
 #include "SistemaClinica.h"
 #include "RegistroPagamentoConsulta.h"
+#include "Funcionario.h"
 using namespace std;
 
 SistemaClinica::SistemaClinica() {
@@ -167,6 +168,7 @@ void SistemaClinica::initAgendaScreen() {
         cin >> opcao;
         this->initAgendaScreen();
     }
+    this->executarAcaoMenu(this->currentUsuario->imprimirMenu());
 };
 
 void SistemaClinica::initRecebimentoConsultasScreen() {
@@ -177,7 +179,7 @@ void SistemaClinica::initRecebimentoConsultasScreen() {
     cout << "=============================================" << endl;
     cout << "Módulo de Recebimento de Consultas" << endl;
     cout << "Insira uma opção:" << endl;
-    cout << "1 - Receber nova consulta | 2 - Visualizar Extrato por Período" << endl;
+    cout << "1 - Receber nova consulta | 2 - Visualizar Extrato por Período  | 3 - Voltar" << endl;
     int opcao;
     cin >> opcao;
     switch (opcao) {
@@ -187,13 +189,63 @@ void SistemaClinica::initRecebimentoConsultasScreen() {
         case 2:
             this->listaConsultasRecebidas();
             break;
+        case 3:
+            this->executarAcaoMenu(this->currentUsuario->imprimirMenu());
+            break;
     }
 };
 
 void SistemaClinica::initPagamentoCoontasScreen() {
+    system("clear");
+    cout << "=============================================" << endl;
+    cout << "Bem vindo(a) ao sistema de gerenciamento da clinica odontologica" << endl;
+    cout << "Usuário Logado: " << this->currentUsuario->getNome() << endl;
+    cout << "=============================================" << endl;
+    cout << "Módulo de Pagamento de Contas" << endl;
+    cout << "Insira uma opção:" << endl;
+    cout << "1 - Adicionar Nova Conta | 2 - Visualizar Contas Inseridas | 3 - Voltar" << endl;
+    int opcao;
+    cin >> opcao;
+    switch (opcao) {
+        case 1:
+            this->inserirRecebimentoConta();
+            break;
+        case 2:
+            this->listaContasInseridas();
+            break;
+        case 3:
+            this->executarAcaoMenu(this->currentUsuario->imprimirMenu());
+            break;
+    }
 };
 
 void SistemaClinica::initFolhaPontoScreen() {
+    system("clear");
+    cout << "=============================================" << endl;
+    cout << "Bem vindo(a) ao sistema de gerenciamento da clinica odontologica" << endl;
+    cout << "Usuário Logado: " << this->currentUsuario->getNome() << endl;
+    cout << "=============================================" << endl;
+    cout << "Módulo de Folha de Ponto" << endl;
+    cout << "Selecione um funcionário para visualizar sua folha de ponto:" << endl;
+    for (int i = 0; i < this->usuarios.size(); i++) {
+        if (this->usuarios[i].get().getNomeClasse() == "Especialista" ||
+                this->usuarios[i].get().getNomeClasse() == "AssistenteAdministrativo"
+                ) {
+            cout << i << " - " << this->usuarios[i].get().getNome() << endl;
+        }
+    }
+    int opcao;
+    cin >> opcao;
+    try {
+        Funcionario* func = dynamic_cast<Funcionario*> (&this->usuarios[opcao].get());
+        func->mostrarFolhaPonto();
+    } catch (...) {
+        cout << "Ocorreu um erro ao carregar a folha de ponto do funcionário selecionado.";
+        cout << "Aperte enter para tentar novamente.";
+        cin >> opcao;
+        this->initAgendaScreen();
+    }
+    this->executarAcaoMenu(this->currentUsuario->imprimirMenu());
 };
 
 void SistemaClinica::initGerenciamentoUsuariosScreen() {
@@ -270,6 +322,65 @@ void SistemaClinica::listaConsultasRecebidas() {
             this->initRecebimentoConsultasScreen();
             break;
         case 3:
+            this->executarAcaoMenu(this->currentUsuario->imprimirMenu());
+            break;
+    }
+};
+
+void SistemaClinica::inserirRecebimentoConta() {
+    system("clear");
+    RegistroPagamentoConta conta;
+    string descricao;
+    string dtVencimento;
+    string dtPagamento;
+    cout << "=============================================" << endl;
+    cout << "Bem vindo(a) ao sistema de gerenciamento da clinica odontologica" << endl;
+    cout << "Usuário Logado: " << this->currentUsuario->getNome() << endl;
+    cout << "=============================================" << endl;
+    cout << "Módulo de Recebimento de Contas" << endl;
+    cout << "Adicionar nova conta" << endl;
+    cout << "=============================================" << endl;
+    cout << "Digite a descrição da conta: ";
+    cin >> descricao;
+    cout << "Digite a data de vencimento da conta (dd/mm/yyyy): ";
+    cin >> dtVencimento;
+    cout << "Digite a data de pagamento da conta (dd/mm/yyyy): ";
+    cin >> dtPagamento;
+    conta.setDescricao(descricao);
+    conta.setDtPagamento(dtPagamento);
+    conta.setDtVencimento(dtVencimento);
+    this->contas.push_back(conta);
+    this->initPagamentoCoontasScreen();
+};
+
+void SistemaClinica::listaContasInseridas() {
+    system("clear");
+    RegistroPagamentoConsulta consulta;
+    string dtInicio;
+    string dtFim;
+    cout << "=============================================" << endl;
+    cout << "Bem vindo(a) ao sistema de gerenciamento da clinica odontologica" << endl;
+    cout << "Usuário Logado: " << this->currentUsuario->getNome() << endl;
+    cout << "=============================================" << endl;
+    cout << "Módulo de Recebimento de Consultas" << endl;
+    cout << "Listar Contas Pagas" << endl;
+    cout << "=============================================" << endl;
+
+    for (int i = 0; i < this->contas.size(); i++) {
+        cout << i << " - " << this->contas[i].get().getDescricao() <<
+                " | " << this->contas[i].get().getDtVencimento() << " | " << this->contas[i].get().getDtPagamento() << endl;
+    }
+
+    cout << "================================" << endl
+            << "Insira uma opção: " << endl <<
+            " 1 - Voltar | 2 - Menu Principal: ";
+    int opcao;
+    cin >> opcao;
+    switch (opcao) {
+        case 1:
+            this->initPagamentoCoontasScreen();
+            break;
+        case 2:
             this->executarAcaoMenu(this->currentUsuario->imprimirMenu());
             break;
     }

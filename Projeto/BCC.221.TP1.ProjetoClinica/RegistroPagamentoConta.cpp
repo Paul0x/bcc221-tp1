@@ -16,3 +16,27 @@ RegistroPagamentoConta::RegistroPagamentoConta(const RegistroPagamentoConta& ori
 RegistroPagamentoConta::~RegistroPagamentoConta() {
 }
 
+void RegistroPagamentoConta::setDtPagamento(string dtPagamento) {
+    this->dtPagamento = dtPagamento;
+}
+
+string RegistroPagamentoConta::getDtPagamento() const {
+    return dtPagamento;
+}
+
+void RegistroPagamentoConta::setDtVencimento(string dtVencimento) {
+    this->dtVencimento = dtVencimento;
+}
+
+string RegistroPagamentoConta::getDtVencimento() const {
+    return dtVencimento;
+}
+
+void RegistroPagamentoConta::setDescricao(string descricao) {
+    this->descricao = descricao;
+}
+
+string RegistroPagamentoConta::getDescricao() const {
+    return descricao;
+}
+

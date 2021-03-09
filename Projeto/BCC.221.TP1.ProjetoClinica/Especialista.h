@@ -20,8 +20,9 @@
 #include <algorithm>
 #include <functional>
 #include "RegistroAgenda.h"
+#include "Funcionario.h"
 
-class Especialista: public Usuario{
+class Especialista: public Funcionario{
 public:
     Especialista();
     Especialista(const Especialista& orig);

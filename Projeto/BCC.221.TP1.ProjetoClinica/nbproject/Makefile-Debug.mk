@@ -38,6 +38,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/Administrador.o \
 	${OBJECTDIR}/AssistenteAdministrativo.o \
 	${OBJECTDIR}/Especialista.o \
+	${OBJECTDIR}/Funcionario.o \
 	${OBJECTDIR}/RegistroAgenda.o \
 	${OBJECTDIR}/RegistroPagamentoConsulta.o \
 	${OBJECTDIR}/RegistroPagamentoConta.o \
@@ -85,6 +86,11 @@ ${OBJECTDIR}/Especialista.o: Especialista.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I. -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Especialista.o Especialista.cpp
+
+${OBJECTDIR}/Funcionario.o: Funcionario.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I. -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Funcionario.o Funcionario.cpp
 
 ${OBJECTDIR}/RegistroAgenda.o: RegistroAgenda.cpp
 	${MKDIR} -p ${OBJECTDIR}

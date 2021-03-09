@@ -7,6 +7,7 @@
       <itemPath>Administrador.h</itemPath>
       <itemPath>AssistenteAdministrativo.h</itemPath>
       <itemPath>Especialista.h</itemPath>
+      <itemPath>Funcionario.h</itemPath>
       <itemPath>RegistroAgenda.h</itemPath>
       <itemPath>RegistroPagamentoConsulta.h</itemPath>
       <itemPath>RegistroPagamentoConta.h</itemPath>
@@ -25,6 +26,7 @@
       <itemPath>Administrador.cpp</itemPath>
       <itemPath>AssistenteAdministrativo.cpp</itemPath>
       <itemPath>Especialista.cpp</itemPath>
+      <itemPath>Funcionario.cpp</itemPath>
       <itemPath>RegistroAgenda.cpp</itemPath>
       <itemPath>RegistroPagamentoConsulta.cpp</itemPath>
       <itemPath>RegistroPagamentoConta.cpp</itemPath>
@@ -72,6 +74,10 @@
       <item path="Especialista.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Especialista.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Funcionario.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Funcionario.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="RegistroAgenda.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -133,6 +139,10 @@
       <item path="Especialista.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Especialista.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Funcionario.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Funcionario.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="RegistroAgenda.cpp" ex="false" tool="1" flavor2="0">
       </item>

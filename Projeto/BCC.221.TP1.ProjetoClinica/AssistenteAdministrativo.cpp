@@ -45,11 +45,3 @@ string AssistenteAdministrativo::imprimirMenu() {
             break;
     }
 }
-
-void AssistenteAdministrativo::setFolhaPonto(vector<std::reference_wrapper<RegistroPonto> > folhaPonto) {
-    this->folhaPonto = folhaPonto;
-}
-
-vector<std::reference_wrapper<RegistroPonto> > AssistenteAdministrativo::getFolhaPonto() const {
-    return folhaPonto;
-}

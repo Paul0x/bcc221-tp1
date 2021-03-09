@@ -35,7 +35,7 @@ public:
 private:
     vector<std::reference_wrapper<Usuario>> usuarios;
     map<time_t, RegistroPagamentoConsulta*> consultas;
-    vector<RegistroPagamentoConta> contas;
+    vector<std::reference_wrapper<RegistroPagamentoConta>> contas;
     Usuario* currentUsuario;
     void initUsuarios();
     void initTelaLogin();
@@ -48,6 +48,8 @@ private:
     void initGerenciamentoUsuariosScreen();
     void inserirRecebimentoConsulta();
     void listaConsultasRecebidas();
+    void inserirRecebimentoConta();
+    void listaContasInseridas();
 };
 
 #endif /* SISTEMACLINICA_H */

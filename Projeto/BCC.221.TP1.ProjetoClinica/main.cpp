@@ -11,7 +11,6 @@
 #include <SistemaClinica.h>
 using namespace std;
 
-
 int main(int argc, char** argv) {
     SistemaClinica sistema = SistemaClinica();
     return 0;
