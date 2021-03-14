@@ -161,7 +161,6 @@ void SistemaClinica::initAgendaScreen() {
     try {
         Especialista* esp = dynamic_cast<Especialista*> (&this->usuarios[opcao].get());
         esp->mostrarAgenda();
-
     } catch (...) {
         cout << "Ocorreu um erro ao carregar a agenda do especialista selecionado.";
         cout << "Aperte enter para tentar novamente.";
@@ -236,9 +235,11 @@ void SistemaClinica::initFolhaPontoScreen() {
     }
     int opcao;
     cin >> opcao;
+    Funcionario* func
     try {
-        Funcionario* func = dynamic_cast<Funcionario*> (&this->usuarios[opcao].get());
+        func = dynamic_cast<Funcionario*> (&this->usuarios[opcao].get());
         func->mostrarFolhaPonto();
+        this->usuarios.push_back(*func);
     } catch (...) {
         cout << "Ocorreu um erro ao carregar a folha de ponto do funcionário selecionado.";
         cout << "Aperte enter para tentar novamente.";
