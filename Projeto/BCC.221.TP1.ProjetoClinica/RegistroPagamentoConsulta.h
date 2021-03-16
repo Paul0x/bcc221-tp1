@@ -10,6 +10,8 @@
 
 #include <iostream>
 #include <string>
+#include <string.h>
+
 #include <ctime>
 
 using namespace std;
@@ -28,8 +30,8 @@ public:
     double getValor() const;
 private:
     double valor;
-    string nomeCliente;
-    string data;
+    char nomeCliente[60];
+    char data[11];
     time_t dataTimestamp;
 };
 

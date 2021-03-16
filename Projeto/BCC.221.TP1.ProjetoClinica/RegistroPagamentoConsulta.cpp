@@ -18,7 +18,13 @@ RegistroPagamentoConsulta::~RegistroPagamentoConsulta() {
 
 void RegistroPagamentoConsulta::setDataTimestamp(time_t dataTimestamp) {
     this->dataTimestamp = dataTimestamp;
-    this->data = ctime(&dataTimestamp);
+    string tmp = ctime(&dataTimestamp);
+    const char *tmpChar = tmp.data();
+    int length = tmp.size();
+    length = (length < 11 ? length : 10);
+    strncpy(this->data, tmpChar, length);
+    this->data[ length ] = '\0';
+    
 }
 
 time_t RegistroPagamentoConsulta::getDataTimestamp() const {
@@ -26,7 +32,12 @@ time_t RegistroPagamentoConsulta::getDataTimestamp() const {
 }
 
 void RegistroPagamentoConsulta::setData(string data) {
-    this->data = data;
+
+    const char *tmpChar = data.data();
+    int length = data.size();
+    length = (length < 11 ? length : 10);
+    strncpy(this->data, tmpChar, length);
+    this->data[ length ] = '\0';
 }
 
 string RegistroPagamentoConsulta::getData() const {
@@ -34,7 +45,11 @@ string RegistroPagamentoConsulta::getData() const {
 }
 
 void RegistroPagamentoConsulta::setNomeCliente(string nomeCliente) {
-    this->nomeCliente = nomeCliente;
+    const char *tmpChar = nomeCliente.data();
+    int length = nomeCliente.size();
+    length = (length < 60 ? length : 59);
+    strncpy(this->nomeCliente, tmpChar, length);
+    this->nomeCliente[ length ] = '\0';
 }
 
 string RegistroPagamentoConsulta::getNomeCliente() const {

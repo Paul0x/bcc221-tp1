@@ -19,7 +19,11 @@ RegistroAgenda::~RegistroAgenda() {
 }
 
 void RegistroAgenda::setObservacao(string observacao) {
-    this->observacao = observacao;
+   const char *tmpChar = observacao.data();
+   int length = observacao.size();
+   length = ( length < 100? length : 99 );
+   strncpy( this->observacao, tmpChar, length );
+   this->observacao[ length ] = '\0';
 }
 
 string RegistroAgenda::getObservacao() const {
@@ -27,7 +31,11 @@ string RegistroAgenda::getObservacao() const {
 }
 
 void RegistroAgenda::setData(string data) {
-    this->data = data;
+   const char *tmpChar = data.data();
+   int length = data.size();
+   length = ( length < 11 ? length : 10 );
+   strncpy( this->data, tmpChar, length );
+   this->data[ length ] = '\0';
 }
 
 string RegistroAgenda::getHora() const {
@@ -35,7 +43,11 @@ string RegistroAgenda::getHora() const {
 }
 
 void RegistroAgenda::setHora(string hora) {
-    this->hora = hora;
+   const char *tmpChar = hora.data();
+   int length = hora.size();
+   length = ( length < 6 ? length : 5 );
+   strncpy( this->hora, tmpChar, length );
+   this->hora[ length ] = '\0';
 }
 
 string RegistroAgenda::getData() const {
@@ -47,6 +59,6 @@ time_t RegistroAgenda::getTimestamp() const {
 }
 
 void RegistroAgenda::setTimestamp() {
-    this->timestamp = to_time_t(this->data + " " + this->hora + ":00", false, "%d/%m/%Y %H:%M:%S");
+    this->timestamp = to_time_t(string(this->data) + " " + string(this->hora) + ":00", false, "%d/%m/%Y %H:%M:%S");
 }
 

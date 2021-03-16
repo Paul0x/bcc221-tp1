@@ -13,6 +13,8 @@ using namespace std;
 
 int main(int argc, char** argv) {
     SistemaClinica sistema = SistemaClinica();
+    sistema.initUsuarios();
+    sistema.initSistema();
     return 0;
 }
 

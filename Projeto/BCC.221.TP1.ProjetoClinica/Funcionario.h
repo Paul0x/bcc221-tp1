@@ -25,19 +25,20 @@
 #include "Usuario.h"
 #include <functional>
 #include <algorithm>
+#include <memory>
 
 class Funcionario : public Usuario {
 public:
     Funcionario();
     Funcionario(const Funcionario& orig);
     virtual ~Funcionario();
-    void setFolhaPonto(vector<std::reference_wrapper<RegistroPonto> > folhaPonto);
-    vector<std::reference_wrapper<RegistroPonto> > getFolhaPonto() const;
+    void setFolhaPonto(vector<std::shared_ptr<RegistroPonto> > folhaPonto);
+    vector<std::shared_ptr<RegistroPonto> > getFolhaPonto() const;
     void adicionarRegistroPonto();
     void mostrarFolhaPonto();
     void sortFolhaPonto();
 private:
-    vector<std::reference_wrapper<RegistroPonto>> folhaPonto;
+    vector<std::shared_ptr<RegistroPonto>> folhaPonto;
 
 
 

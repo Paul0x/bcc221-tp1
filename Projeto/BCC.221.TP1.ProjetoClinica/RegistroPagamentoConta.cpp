@@ -17,7 +17,11 @@ RegistroPagamentoConta::~RegistroPagamentoConta() {
 }
 
 void RegistroPagamentoConta::setDtPagamento(string dtPagamento) {
-    this->dtPagamento = dtPagamento;
+    const char *tmpChar = dtPagamento.data();
+    int length = dtPagamento.size();
+    length = (length < 11 ? length : 10);
+    strncpy(this->dtPagamento, tmpChar, length);
+    this->dtPagamento[ length ] = '\0';
 }
 
 string RegistroPagamentoConta::getDtPagamento() const {
@@ -25,7 +29,11 @@ string RegistroPagamentoConta::getDtPagamento() const {
 }
 
 void RegistroPagamentoConta::setDtVencimento(string dtVencimento) {
-    this->dtVencimento = dtVencimento;
+    const char *tmpChar = dtVencimento.data();
+    int length = dtVencimento.size();
+    length = (length < 11 ? length : 10);
+    strncpy(this->dtVencimento, tmpChar, length);
+    this->dtVencimento[ length ] = '\0';
 }
 
 string RegistroPagamentoConta::getDtVencimento() const {
@@ -33,7 +41,11 @@ string RegistroPagamentoConta::getDtVencimento() const {
 }
 
 void RegistroPagamentoConta::setDescricao(string descricao) {
-    this->descricao = descricao;
+    const char *tmpChar = descricao.data();
+    int length = descricao.size();
+    length = (length < 100 ? length : 99);
+    strncpy(this->descricao, tmpChar, length);
+    this->descricao[ length ] = '\0';
 }
 
 string RegistroPagamentoConta::getDescricao() const {

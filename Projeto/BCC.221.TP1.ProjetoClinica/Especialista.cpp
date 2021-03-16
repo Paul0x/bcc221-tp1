@@ -33,16 +33,16 @@ string Especialista::imprimirMenu() {
             return "fp";
             break;
         case 3:
-            exit(0);
+            return "ex";
             break;
     }
 }
 
-void Especialista::setAgenda(vector<std::reference_wrapper<RegistroAgenda> > agenda) {
+void Especialista::setAgenda(vector<std::shared_ptr<RegistroAgenda> > agenda) {
     this->agenda = agenda;
 }
 
-vector<std::reference_wrapper<RegistroAgenda> > Especialista::getAgenda() const {
+vector<std::shared_ptr<RegistroAgenda> > Especialista::getAgenda() const {
     return agenda;
 }
 
@@ -55,7 +55,7 @@ void Especialista::mostrarAgenda() {
         cout << "Não existem registros na agenda." << endl;;
     } else {
         for (int i = 0; i < this->getAgenda().size(); i++) {
-            cout << i << " - " << this->agenda[i].get().getData() << " às " << this->agenda[i].get().getHora() << " | " << this->agenda[i].get().getObservacao() << endl;
+            cout << i << " - " << this->agenda[i]->getData() << " às " << this->agenda[i]->getHora() << " | " << this->agenda[i]->getObservacao() << endl;
         }
     }
     cout << "=============================================" << endl;
@@ -89,7 +89,7 @@ void Especialista::adicionarRegistroAgenda() {
     string data;
     string hora;
     string observacao;
-    RegistroAgenda registro = RegistroAgenda();
+    shared_ptr<RegistroAgenda> registro = make_shared<RegistroAgenda>();
     system("clear");
     cout << "Adicionar novo registro da agenda do especialista: " << this->getNome() << endl;
     cout << "=============================================" << endl;
@@ -99,10 +99,10 @@ void Especialista::adicionarRegistroAgenda() {
     cin >> hora;
     cout << endl << "Insira uma observação do registro: ";
     cin >> observacao;
-    registro.setData(data);
-    registro.setHora(hora);
-    registro.setObservacao(observacao);
-    registro.setTimestamp();
+    registro->setData(data);
+    registro->setHora(hora);
+    registro->setObservacao(observacao);
+    registro->setTimestamp();
     this->agenda.push_back(registro);
     this->mostrarAgenda();
 }
@@ -111,12 +111,12 @@ void Especialista::editarRegistroAgenda(int index) {
     string data;
     string hora;
     string observacao;
-    RegistroAgenda registro = RegistroAgenda();
+    shared_ptr<RegistroAgenda> registro = make_shared<RegistroAgenda>();
     system("clear");
     cout << "Editar o registro da agenda do especialista: " << this->getNome() << endl;
     cout << "Informações atuais: " << endl;
-    cout << "Data e Hora: " << this->agenda[index].get().getData() << " às " << this->agenda[index].get().getHora() << endl;
-    cout << "Observação: " << this->agenda[index].get().getObservacao() << endl;
+    cout << "Data e Hora: " << this->agenda[index]->getData() << " às " << this->agenda[index]->getHora() << endl;
+    cout << "Observação: " << this->agenda[index]->getObservacao() << endl;
     cout << "=============================================" << endl;
     cout << "Insira a nova data do registro: ";
     cin >> data;
@@ -124,10 +124,10 @@ void Especialista::editarRegistroAgenda(int index) {
     cin >> hora;
     cout << endl << "Insira uma nova observação do registro: ";
     cin >> observacao;
-    registro.setData(data);
-    registro.setHora(hora);
-    registro.setObservacao(observacao);
-    registro.setTimestamp();
+    registro->setData(data);
+    registro->setHora(hora);
+    registro->setObservacao(observacao);
+    registro->setTimestamp();
     this->agenda[index] = registro;
     //this->agenda.insert(this->agenda.begin() + index, registro);
     this->mostrarAgenda();
@@ -143,7 +143,7 @@ void Especialista::removerRegistroAgenda(int index) {
 }
 
 void Especialista::sortAgenda() {
-    sort(this->agenda.begin(), this->agenda.end(), [](const std::reference_wrapper<RegistroAgenda>& lhs, const std::reference_wrapper<RegistroAgenda>& rhs) {
-      return lhs.get().getTimestamp() < rhs.get().getTimestamp();
+    sort(this->agenda.begin(), this->agenda.end(), [](const std::shared_ptr<RegistroAgenda>& lhs, const std::shared_ptr<RegistroAgenda>& rhs) {
+      return lhs->getTimestamp() < rhs->getTimestamp();
    });
 }

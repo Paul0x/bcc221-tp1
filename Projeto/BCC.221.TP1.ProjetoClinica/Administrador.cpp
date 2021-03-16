@@ -8,6 +8,7 @@
 #include "Administrador.h"
 
 Administrador::Administrador() {
+    cout << "Criando admin";
 }
 
 Administrador::Administrador(const Administrador& orig) {
@@ -42,7 +43,7 @@ string Administrador::imprimirMenu() {
         case 5:
             return "gu";
         case 6:
-            exit(0);
+            return "ex";
             break;
     }
 }

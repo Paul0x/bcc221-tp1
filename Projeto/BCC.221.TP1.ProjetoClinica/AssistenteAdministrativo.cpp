@@ -41,7 +41,7 @@ string AssistenteAdministrativo::imprimirMenu() {
             return "fp";
             break;
         case 5:
-            exit(0);
+            return "ex";
             break;
     }
 }

@@ -22,11 +22,11 @@ Funcionario::Funcionario(const Funcionario& orig) {
 Funcionario::~Funcionario() {
 }
 
-void Funcionario::setFolhaPonto(vector<std::reference_wrapper<RegistroPonto> > folhaPonto) {
+void Funcionario::setFolhaPonto(vector<std::shared_ptr<RegistroPonto> > folhaPonto) {
     this->folhaPonto = folhaPonto;
 }
 
-vector<std::reference_wrapper<RegistroPonto> > Funcionario::getFolhaPonto() const {
+vector<std::shared_ptr<RegistroPonto> > Funcionario::getFolhaPonto() const {
     return folhaPonto;
 }
 
@@ -39,8 +39,8 @@ void Funcionario::mostrarFolhaPonto() {
         cout << "Não existem registros na folha de ponto." << endl;;
     } else {
         for (int i = 0; i < this->getFolhaPonto().size(); i++) {
-            cout << this->folhaPonto[i].get().getDtRegistro()
-                    << " | " << this->folhaPonto[i].get().getObservacao() << endl;
+            cout << this->folhaPonto[i]->getDtRegistro()
+                    << " | " << this->folhaPonto[i]->getObservacao() << endl;
         }
     }
     cout << "=============================================" << endl;
@@ -60,8 +60,8 @@ void Funcionario::mostrarFolhaPonto() {
 }
 
 void Funcionario::sortFolhaPonto() {
-    sort(this->folhaPonto.begin(), this->folhaPonto.end(), [](const std::reference_wrapper<RegistroPonto>& lhs, const std::reference_wrapper<RegistroPonto>& rhs) {
-      return lhs.get().getTimestamp() < rhs.get().getTimestamp();
+    sort(this->folhaPonto.begin(), this->folhaPonto.end(), [](const std::shared_ptr<RegistroPonto>& lhs, const std::shared_ptr<RegistroPonto>& rhs) {
+      return lhs->getTimestamp() < rhs->getTimestamp();
    });
 }
 
@@ -69,7 +69,7 @@ void Funcionario::sortFolhaPonto() {
 void Funcionario::adicionarRegistroPonto() {
     string dtRegistro;
     string observacao;
-    RegistroPonto registro = RegistroPonto();
+    shared_ptr<RegistroPonto> registro = make_shared<RegistroPonto>();
     system("clear");
     cout << "Adicionar novo registro na folha de ponto do funcionário: " << this->getNome() << endl;
     cout << "=============================================" << endl;
@@ -77,9 +77,9 @@ void Funcionario::adicionarRegistroPonto() {
     cin >> dtRegistro;
     cout << endl << "Insira uma observação do registro: ";
     cin >> observacao;
-    registro.setDtRegistro(dtRegistro);
-    registro.setObservacao(observacao);
-    registro.setTimestamp();
+    registro->setDtRegistro(dtRegistro);
+    registro->setObservacao(observacao);
+    registro->setTimestamp();
     this->folhaPonto.push_back(registro);
     this->mostrarFolhaPonto();
 }

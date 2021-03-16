@@ -12,6 +12,8 @@
 #include <vector>
 #include <functional>
 #include <typeinfo>
+#include <string>
+#include <string.h>
 #ifdef __cplusplus__
 #include <cstdlib>
 #else
@@ -33,9 +35,9 @@ public:
     time_t getTimestamp() const;
     void setTimestamp();
 private:
-    string data;
-    string hora;
-    string observacao;
+    char data[11];
+    char hora[6];
+    char observacao[100];
     time_t timestamp;
 };
 

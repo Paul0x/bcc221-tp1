@@ -19,6 +19,7 @@
 #include <vector>
 #include <algorithm>
 #include <functional>
+#include <memory>
 #include "RegistroAgenda.h"
 #include "Funcionario.h"
 
@@ -28,10 +29,8 @@ public:
     Especialista(const Especialista& orig);
     virtual ~Especialista();
     virtual string imprimirMenu();
-    void setAgenda(vector<std::reference_wrapper<RegistroAgenda> > agenda);
-    vector<std::reference_wrapper<RegistroAgenda> > getAgenda() const;
-    void setFolhaPonto(vector<std::reference_wrapper<RegistroPonto> > folhaPonto);
-    vector<std::reference_wrapper<RegistroPonto> > getFolhaPonto() const;
+    void setAgenda(vector<std::shared_ptr<RegistroAgenda> > agenda);
+    vector<std::shared_ptr<RegistroAgenda> > getAgenda() const;
     void mostrarAgenda();
     void adicionarRegistroAgenda();
     void editarRegistroAgenda(int);
@@ -43,10 +42,9 @@ public:
       return nome;
     }
 private:
-    vector<std::reference_wrapper<RegistroAgenda>> agenda;
-    vector<std::reference_wrapper<RegistroPonto>> folhaPonto;
+    vector<std::shared_ptr<RegistroAgenda>> agenda;
+    vector<std::shared_ptr<RegistroPonto>> folhaPonto;
 
 };
-
 #endif /* ESPECIALISTA_H */
 

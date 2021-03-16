@@ -4,12 +4,13 @@
  *  paulof@ufop.edu.br
  *  02/2021
  ***************************************************************************/
-#include<string>
-#include<iostream>
 
 using namespace std;
 #ifndef USUARIO_H
 #define USUARIO_H
+#include<string>
+#include<string.h>
+#include<iostream>
 
 class Usuario {
 public:
@@ -26,14 +27,21 @@ public:
     string getEmail() const;
     void setCpf(string cpf);
     string getCpf() const;
+    void setCodigo(int codigo);
+    int getCodigo() const;
+    void buildFromUsuario(Usuario &usuario);
     virtual string imprimirMenu();
-    virtual const std::string& getNomeClasse() const = 0;
+    virtual const std::string& getNomeClasse() const {        
+      static const std::string nome{"Usuario"};
+      return nome;
+    }
 protected:
-    string nome;
-    string cpf;
-    string email;
-    string login;
-    string senha;
+    char nome[50];
+    char cpf[14];
+    char email[50];
+    char login[50];
+    char senha[50];
+    int codigo;
     
 };
 

@@ -7,12 +7,10 @@
 
 
 #include "SistemaClinica.h"
-#include "RegistroPagamentoConsulta.h"
-#include "Funcionario.h"
 using namespace std;
 
 SistemaClinica::SistemaClinica() {
-    this->initUsuarios();
+    this->contas = this->fileHelper.buscarPagamentoConta();
 
 
 }
@@ -21,6 +19,7 @@ SistemaClinica::SistemaClinica(const SistemaClinica& orig) {
 }
 
 SistemaClinica::~SistemaClinica() {
+    this->fileHelper.salvarPagamentoConta(this->contas);
 }
 
 void SistemaClinica::initSistema() {
@@ -47,44 +46,45 @@ void SistemaClinica::initSistema() {
 
 void SistemaClinica::initUsuarios() {
 
-    Administrador admin = Administrador();
-    admin.setCpf("000.000.000-99");
-    admin.setEmail("admin@clinica.com");
-    admin.setLogin("admin");
-    admin.setSenha("admin");
-    admin.setNome("Administrador");
-    this->usuarios.push_back(admin);
-
-    Especialista esp1 = Especialista();
-    esp1.setCpf("000.000.000-98");
-    esp1.setEmail("admin@clinica.com");
-    esp1.setLogin("admin1");
-    esp1.setSenha("admin1");
-    esp1.setNome("Especialista 1");
-    this->usuarios.push_back(esp1);
-
-    Especialista esp2 = Especialista();
-    esp2.setCpf("000.000.000-97");
-    esp2.setEmail("admin@clinica.com");
-    esp2.setLogin("admin2");
-    esp2.setSenha("admin3");
-    esp2.setNome("Especialista 2");
-    this->usuarios.push_back(esp2);
-
-    Especialista esp3 = Especialista();
-    esp3.setCpf("000.000.000-96");
-    esp3.setEmail("admin@clinica.com");
-    esp3.setLogin("admin2");
-    esp3.setSenha("admin3");
-    esp3.setNome("Especialista 3");
-    this->usuarios.push_back(esp3);
-
+    //    Administrador admin = Administrador();
+    //    admin.setCpf("000.000.000-99");
+    //    admin.setEmail("admin@clinica.com");
+    //    admin.setLogin("admin");
+    //    admin.setSenha("admin");
+    //    admin.setNome("Administrador");
+    //    //this->usuarios.push_back(admin);
+    //
+    //    Especialista esp1 = Especialista();
+    //    esp1.setCpf("000.000.000-98");
+    //    esp1.setEmail("admin@clinica.com");
+    //    esp1.setLogin("admin1");
+    //    esp1.setSenha("admin1");
+    //    esp1.setNome("Especialista 1");
+    //    //this->usuarios.push_back(esp1);
+    //
+    //    Especialista esp2 = Especialista();
+    //    esp2.setCpf("000.000.000-97");
+    //    esp2.setEmail("admin@clinica.com");
+    //    esp2.setLogin("admin2");
+    //    esp2.setSenha("admin3");
+    //    esp2.setNome("Especialista 2");
+    //    //this->usuarios.push_back(esp2);
+    //
+    //    Especialista esp3 = Especialista();
+    //    esp3.setCpf("000.000.000-96");
+    //    esp3.setEmail("admin@clinica.com");
+    //    esp3.setLogin("admin2");
+    //    esp3.setSenha("admin3");
+    //    esp3.setNome("Especialista 3");
+    //    //this->usuarios.push_back(esp3);
+    //    this->fileHelper.registrarUsuarioArquivo(admin);
+    //    this->fileHelper.registrarUsuarioArquivo(esp1);
+    //    this->fileHelper.registrarUsuarioArquivo(esp2);
+    //    this->fileHelper.registrarUsuarioArquivo(esp3);
     cout << "Usuários inicializados com sucesso" << endl;
-    for (int i = 0; i < this->usuarios.size(); i++) {
-        Usuario* us = &this->usuarios[i].get();
-        std::cout << typeid (us).name() << " - " << us->getNome() << endl;
-    }
-    this->initSistema();
+
+    this->usuarios = this->fileHelper.buscarUsuariosArquivo();
+
 
 }
 
@@ -106,10 +106,10 @@ void SistemaClinica::initTelaLogin() {
 
     int loginFlag = 0;
     for (int i = 0; i < this->usuarios.size(); i++) {
-        if (this->usuarios[i].get().getLogin() == usuario) {
-            if (this->usuarios[i].get().getSenha() == senha) {
+        if (this->usuarios[i]->getLogin() == usuario) {
+            if (this->usuarios[i]->getSenha() == senha) {
                 loginFlag = 1;
-                this->currentUsuario = &this->usuarios[i].get();
+                this->currentUsuario = this->usuarios[i];
             }
         }
     }
@@ -134,11 +134,13 @@ void SistemaClinica::executarAcaoMenu(string acao) {
     } else if (acao == "rc") {
         this->initRecebimentoConsultasScreen();
     } else if (acao == "pc") {
-        this->initPagamentoCoontasScreen();
+        this->initPagamentoContasScreen();
     } else if (acao == "fp") {
         this->initFolhaPontoScreen();
     } else if (acao == "gu") {
         this->initGerenciamentoUsuariosScreen();
+    } else {
+        this->fileHelper.salvarPagamentoConta(this->contas);
     }
 
 }
@@ -152,15 +154,17 @@ void SistemaClinica::initAgendaScreen() {
     cout << "Módulo de Agenda" << endl;
     cout << "Selecione um especialista para visualizar sua agenda:" << endl;
     for (int i = 0; i < this->usuarios.size(); i++) {
-        if (this->usuarios[i].get().getNomeClasse() == "Especialista") {
-            cout << i << " - " << this->usuarios[i].get().getNome() << endl;
+        if (this->usuarios[i]->getNomeClasse() == "Especialista") {
+            cout << i << " - " << this->usuarios[i]->getNome() << endl;
         }
     }
     int opcao;
     cin >> opcao;
     try {
-        Especialista* esp = dynamic_cast<Especialista*> (&this->usuarios[opcao].get());
+        shared_ptr<Especialista> esp = dynamic_pointer_cast<Especialista> (this->usuarios[opcao]);
+        esp->setAgenda(this->fileHelper.buscarAgendaEspecialista(esp->getCodigo()));
         esp->mostrarAgenda();
+        this->fileHelper.salvarAgendaEspecialista(esp->getAgenda(), esp->getCodigo());
     } catch (...) {
         cout << "Ocorreu um erro ao carregar a agenda do especialista selecionado.";
         cout << "Aperte enter para tentar novamente.";
@@ -194,7 +198,7 @@ void SistemaClinica::initRecebimentoConsultasScreen() {
     }
 };
 
-void SistemaClinica::initPagamentoCoontasScreen() {
+void SistemaClinica::initPagamentoContasScreen() {
     system("clear");
     cout << "=============================================" << endl;
     cout << "Bem vindo(a) ao sistema de gerenciamento da clinica odontologica" << endl;
@@ -227,19 +231,20 @@ void SistemaClinica::initFolhaPontoScreen() {
     cout << "Módulo de Folha de Ponto" << endl;
     cout << "Selecione um funcionário para visualizar sua folha de ponto:" << endl;
     for (int i = 0; i < this->usuarios.size(); i++) {
-        if (this->usuarios[i].get().getNomeClasse() == "Especialista" ||
-                this->usuarios[i].get().getNomeClasse() == "AssistenteAdministrativo"
+        if (this->usuarios[i]->getNomeClasse() == "Especialista" ||
+                this->usuarios[i]->getNomeClasse() == "AssistenteAdministrativo"
                 ) {
-            cout << i << " - " << this->usuarios[i].get().getNome() << endl;
+            cout << i << " - " << this->usuarios[i]->getNome() << endl;
         }
     }
     int opcao;
     cin >> opcao;
-    Funcionario* func
+    shared_ptr<Funcionario> func;
     try {
-        func = dynamic_cast<Funcionario*> (&this->usuarios[opcao].get());
+        func = dynamic_pointer_cast<Funcionario> (this->usuarios[opcao]);
+        func->setFolhaPonto(this->fileHelper.buscarPontoFuncionario(func->getCodigo()));
         func->mostrarFolhaPonto();
-        this->usuarios.push_back(*func);
+        this->fileHelper.salvarPontoFuncionario(func->getFolhaPonto(), func->getCodigo());
     } catch (...) {
         cout << "Ocorreu um erro ao carregar a folha de ponto do funcionário selecionado.";
         cout << "Aperte enter para tentar novamente.";
@@ -250,6 +255,26 @@ void SistemaClinica::initFolhaPontoScreen() {
 };
 
 void SistemaClinica::initGerenciamentoUsuariosScreen() {
+    system("clear");
+    cout << "=============================================" << endl;
+    cout << "Bem vindo(a) ao sistema de gerenciamento da clinica odontologica" << endl;
+    cout << "Usuário Logado: " << this->currentUsuario->getNome() << endl;
+    cout << "=============================================" << endl;
+    cout << "Módulo de Cadastro de Usuarios" << endl;
+    cout << "=============================================" << endl;
+    cout << "Escolha uma das opções: 1 - Adicionar Usuário | 2 - Remover Usuário | 3 - Voltar";
+    int opcao;
+    cin >> opcao;
+    switch (opcao) {
+        case 1:
+            this->cadastrarUsuario();
+            break;
+        case 2:
+            this->removerUsuario();
+            break;
+        default:
+            this->executarAcaoMenu(this->currentUsuario->imprimirMenu());
+    }
 };
 
 void SistemaClinica::inserirRecebimentoConsulta() {
@@ -330,7 +355,7 @@ void SistemaClinica::listaConsultasRecebidas() {
 
 void SistemaClinica::inserirRecebimentoConta() {
     system("clear");
-    RegistroPagamentoConta conta;
+    shared_ptr<RegistroPagamentoConta> conta = make_shared<RegistroPagamentoConta>();
     string descricao;
     string dtVencimento;
     string dtPagamento;
@@ -347,11 +372,11 @@ void SistemaClinica::inserirRecebimentoConta() {
     cin >> dtVencimento;
     cout << "Digite a data de pagamento da conta (dd/mm/yyyy): ";
     cin >> dtPagamento;
-    conta.setDescricao(descricao);
-    conta.setDtPagamento(dtPagamento);
-    conta.setDtVencimento(dtVencimento);
+    conta->setDescricao(descricao);
+    conta->setDtPagamento(dtPagamento);
+    conta->setDtVencimento(dtVencimento);
     this->contas.push_back(conta);
-    this->initPagamentoCoontasScreen();
+    this->initPagamentoContasScreen();
 };
 
 void SistemaClinica::listaContasInseridas() {
@@ -368,8 +393,8 @@ void SistemaClinica::listaContasInseridas() {
     cout << "=============================================" << endl;
 
     for (int i = 0; i < this->contas.size(); i++) {
-        cout << i << " - " << this->contas[i].get().getDescricao() <<
-                " | " << this->contas[i].get().getDtVencimento() << " | " << this->contas[i].get().getDtPagamento() << endl;
+        cout << i << " - " << this->contas[i]->getDescricao() <<
+                " | " << this->contas[i]->getDtVencimento() << " | " << this->contas[i]->getDtPagamento() << endl;
     }
 
     cout << "================================" << endl
@@ -379,10 +404,71 @@ void SistemaClinica::listaContasInseridas() {
     cin >> opcao;
     switch (opcao) {
         case 1:
-            this->initPagamentoCoontasScreen();
+            this->initPagamentoContasScreen();
             break;
         case 2:
             this->executarAcaoMenu(this->currentUsuario->imprimirMenu());
             break;
     }
 };
+
+void SistemaClinica::cadastrarUsuario() {
+    system("clear");
+    string nome;
+    string cpf;
+    string email;
+    string login;
+    string senha;
+    int tipo = 0;
+    int codigo;
+    cout << "=============================================" << endl;
+    cout << "Bem vindo(a) ao sistema de gerenciamento da clinica odontologica" << endl;
+    cout << "Usuário Logado: " << this->currentUsuario->getNome() << endl;
+    cout << "=============================================" << endl;
+    cout << "Adicionar novo usuário" << endl;
+    cout << "=============================================" << endl;
+    cout << "Digite o tipo de usuário -> 1 - Administrador | 2 - Assistente Administrativo | 3 - Especialista: ";
+    do {
+        cin >> tipo;
+    } while (tipo <= 0 || tipo > 3);
+    cout << "Digite o nome do usuário: ";
+    cin >> nome;
+    cout << "Digite o cpf do usuário: ";
+    cin >> cpf;
+    cout << "Digite o email do usuário: ";
+    cin >> email;
+    cout << "Digite o login do usuário: ";
+    cin >> login;
+    cout << "Digite a senha do usuário: ";
+    cin >> senha;
+
+    codigo = this->usuarios.size() + 1;
+    shared_ptr<Usuario> usr;
+    switch (tipo) {
+        case 1:
+            usr = make_shared<Administrador>();
+            break;
+        case 2:
+            usr = make_shared<AssistenteAdministrativo>();
+            break;
+        case 3:
+            usr = make_shared<Especialista>();
+            break;
+    }
+
+    usr->setCodigo(codigo);
+    usr->setCpf(cpf);
+    usr->setEmail(email);
+    usr->setNome(nome);
+    usr->setSenha(senha);
+    usr->setLogin(login);
+    this->usuarios.push_back(usr);
+    this->fileHelper.registrarUsuarioArquivo(*usr);
+    this->usuarios = this->fileHelper.buscarUsuariosArquivo();
+    this->initGerenciamentoUsuariosScreen();
+
+};
+
+void SistemaClinica::removerUsuario() {
+
+}

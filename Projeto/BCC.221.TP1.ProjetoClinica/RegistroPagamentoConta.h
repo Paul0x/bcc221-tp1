@@ -9,6 +9,7 @@
 #define REGISTROPAGAMENTOCONTA_H
 #include <string>
 #include <iostream>
+#include <string.h>
 
 using namespace std;
 class RegistroPagamentoConta {
@@ -23,9 +24,9 @@ public:
     void setDescricao(string descricao);
     string getDescricao() const;
 private:
-    string descricao;
-    string dtVencimento;
-    string dtPagamento;
+    char descricao[100];
+    char dtVencimento[11];
+    char dtPagamento[11];
 
 };
 

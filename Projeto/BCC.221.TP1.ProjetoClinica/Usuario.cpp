@@ -17,7 +17,11 @@ Usuario::~Usuario() {
 }
 
 void Usuario::setNome(string nome) {
-    this->nome = nome;
+    const char *tmpChar = nome.data();
+    int length = nome.size();
+    length = (length < 50 ? length : 49);
+    strncpy(this->nome, tmpChar, length);
+    this->nome[ length ] = '\0';
 }
 
 string Usuario::getNome() const {
@@ -25,7 +29,11 @@ string Usuario::getNome() const {
 }
 
 void Usuario::setSenha(string senha) {
-    this->senha = senha;
+    const char *tmpChar = senha.data();
+    int length = senha.size();
+    length = (length < 50 ? length : 49);
+    strncpy(this->senha, tmpChar, length);
+    this->senha[ length ] = '\0';
 }
 
 string Usuario::getSenha() const {
@@ -33,7 +41,11 @@ string Usuario::getSenha() const {
 }
 
 void Usuario::setLogin(string login) {
-    this->login = login;
+    const char *tmpChar = login.data();
+    int length = login.size();
+    length = (length < 50 ? length : 49);
+    strncpy(this->login, tmpChar, length);
+    this->login[ length ] = '\0';
 }
 
 string Usuario::getLogin() const {
@@ -41,7 +53,11 @@ string Usuario::getLogin() const {
 }
 
 void Usuario::setEmail(string email) {
-    this->email = email;
+    const char *tmpChar = email.data();
+    int length = email.size();
+    length = (length < 50 ? length : 49);
+    strncpy(this->email, tmpChar, length);
+    this->email[ length ] = '\0';
 }
 
 string Usuario::getEmail() const {
@@ -49,11 +65,23 @@ string Usuario::getEmail() const {
 }
 
 void Usuario::setCpf(string cpf) {
-    this->cpf = cpf;
+    const char *tmpChar = cpf.data();
+    int length = cpf.size();
+    length = (length < 14 ? length : 13);
+    strncpy(this->cpf, tmpChar, length);
+    this->cpf[ length ] = '\0';
 }
 
 string Usuario::getCpf() const {
     return cpf;
+}
+
+void Usuario::setCodigo(int codigo) {
+    this->codigo = codigo;
+}
+
+int Usuario::getCodigo() const {
+    return codigo;
 }
 
 string Usuario::imprimirMenu() {
@@ -69,7 +97,16 @@ string Usuario::imprimirMenu() {
             return "ag";
             break;
         case 2:
-            exit(0);
+            return "ex";
             break;
     }
+}
+
+void Usuario::buildFromUsuario(Usuario &usuario) {
+    this->codigo = usuario.getCodigo();
+    this->setCpf(usuario.getCpf());
+    this->setEmail(usuario.getEmail());
+    this->setLogin(usuario.getLogin());
+    this->setNome(usuario.getNome());
+    this->setSenha(usuario.getSenha());
 }

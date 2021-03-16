@@ -8,6 +8,7 @@
 
 #ifndef ADMINISTRADOR_H
 #define ADMINISTRADOR_H
+
 #include <Usuario.h>
 #include "RegistroPonto.h"
 #ifdef __cplusplus__
