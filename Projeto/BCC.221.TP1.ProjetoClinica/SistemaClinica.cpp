@@ -11,6 +11,8 @@ using namespace std;
 
 SistemaClinica::SistemaClinica() {
     this->contas = this->fileHelper.buscarPagamentoConta();
+    this->consultas = this->fileHelper.buscarPagamentoConsulta();
+    
 
 
 }
