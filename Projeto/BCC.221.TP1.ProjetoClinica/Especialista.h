@@ -43,7 +43,6 @@ public:
     }
 private:
     vector<std::shared_ptr<RegistroAgenda>> agenda;
-    vector<std::shared_ptr<RegistroPonto>> folhaPonto;
 
 };
 #endif /* ESPECIALISTA_H */

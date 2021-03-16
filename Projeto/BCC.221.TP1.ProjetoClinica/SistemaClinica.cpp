@@ -9,22 +9,29 @@
 #include "SistemaClinica.h"
 using namespace std;
 
+/**
+ * Construtor da classe, carrega as contas e consultas dos arquivos.
+ * 
+ */
 SistemaClinica::SistemaClinica() {
     this->contas = this->fileHelper.buscarPagamentoConta();
     this->consultas = this->fileHelper.buscarPagamentoConsulta();
-    
-
-
 }
 
 SistemaClinica::SistemaClinica(const SistemaClinica& orig) {
 }
 
+/**
+ * Destrutor - salva as contas e consultas nos arquivos
+ */
 SistemaClinica::~SistemaClinica() {
     this->fileHelper.salvarPagamentoConta(this->contas);
     this->fileHelper.salvarPagamentoConsulta(this->consultas);
 }
 
+/**
+ *  Função de inicialização do sistema, permitindo a escolha do login
+ */
 void SistemaClinica::initSistema() {
     int opcaoInicio;
     system("clear");
@@ -47,8 +54,11 @@ void SistemaClinica::initSistema() {
 
 }
 
+/**
+ * Função de inicialização dos usuários, carregando os mesmos nos arquivos
+ * OBS: Descomentar as linhas abaixo caso queira que o sistema grave os usuários padrão
+ */
 void SistemaClinica::initUsuarios() {
-
     //    Administrador admin = Administrador();
     //    admin.setCpf("000.000.000-99");
     //    admin.setEmail("admin@clinica.com");
@@ -91,6 +101,9 @@ void SistemaClinica::initUsuarios() {
 
 }
 
+/**
+ *  Tela de login e lógida de login
+ */
 void SistemaClinica::initTelaLogin() {
     system("clear");
     string usuario;
@@ -131,6 +144,10 @@ void SistemaClinica::initTelaLogin() {
 
 }
 
+/**
+ * Executa uma ação de menu, recebe como argumento uma string que é enviada da classe Usuário
+ * @param acao
+ */
 void SistemaClinica::executarAcaoMenu(string acao) {
     if (acao == "ag") {
         this->initAgendaScreen();
@@ -149,6 +166,9 @@ void SistemaClinica::executarAcaoMenu(string acao) {
 
 }
 
+/**
+ * Carrega a tela da agenda
+ */
 void SistemaClinica::initAgendaScreen() {
     system("clear");
     cout << "=============================================" << endl;
@@ -165,6 +185,7 @@ void SistemaClinica::initAgendaScreen() {
     int opcao;
     cin >> opcao;
     try {
+        // Polimorfismo para tipo especialista
         shared_ptr<Especialista> esp = dynamic_pointer_cast<Especialista> (this->usuarios[opcao]);
         esp->setAgenda(this->fileHelper.buscarAgendaEspecialista(esp->getCodigo()));
         esp->mostrarAgenda();
@@ -178,6 +199,9 @@ void SistemaClinica::initAgendaScreen() {
     this->executarAcaoMenu(this->currentUsuario->imprimirMenu());
 };
 
+/**
+ * Tela de recebimento de consultas
+ */
 void SistemaClinica::initRecebimentoConsultasScreen() {
     system("clear");
     cout << "=============================================" << endl;
@@ -202,6 +226,9 @@ void SistemaClinica::initRecebimentoConsultasScreen() {
     }
 };
 
+/**
+ * Tela de pagamento de contas
+ */
 void SistemaClinica::initPagamentoContasScreen() {
     system("clear");
     cout << "=============================================" << endl;
@@ -226,6 +253,9 @@ void SistemaClinica::initPagamentoContasScreen() {
     }
 };
 
+/**
+ * Tela para carregar a folha de ponto de algum funcionário
+ */
 void SistemaClinica::initFolhaPontoScreen() {
     system("clear");
     cout << "=============================================" << endl;
@@ -258,6 +288,9 @@ void SistemaClinica::initFolhaPontoScreen() {
     this->executarAcaoMenu(this->currentUsuario->imprimirMenu());
 };
 
+/*
+ * Tela para área de gerencimaento dos usuários
+ */
 void SistemaClinica::initGerenciamentoUsuariosScreen() {
     system("clear");
     cout << "=============================================" << endl;
@@ -281,6 +314,9 @@ void SistemaClinica::initGerenciamentoUsuariosScreen() {
     }
 };
 
+/*
+ * Adiciona novo recebimento de consulta
+ */
 void SistemaClinica::inserirRecebimentoConsulta() {
     system("clear");
     RegistroPagamentoConsulta consulta;
@@ -309,6 +345,9 @@ void SistemaClinica::inserirRecebimentoConsulta() {
     this->initRecebimentoConsultasScreen();
 };
 
+/**
+ *  Área de listagem das consultas recebidas
+ */
 void SistemaClinica::listaConsultasRecebidas() {
     system("clear");
     RegistroPagamentoConsulta consulta;
@@ -361,6 +400,9 @@ void SistemaClinica::listaConsultasRecebidas() {
     }
 };
 
+/*
+ *  Adiciona novas contas pagas
+ */
 void SistemaClinica::inserirRecebimentoConta() {
     system("clear");
     shared_ptr<RegistroPagamentoConta> conta = make_shared<RegistroPagamentoConta>();
@@ -387,6 +429,9 @@ void SistemaClinica::inserirRecebimentoConta() {
     this->initPagamentoContasScreen();
 };
 
+/*
+ * Lista as contas recebidas
+ */
 void SistemaClinica::listaContasInseridas() {
     system("clear");
     RegistroPagamentoConsulta consulta;
@@ -420,6 +465,9 @@ void SistemaClinica::listaContasInseridas() {
     }
 };
 
+/*
+ * Cadastra novos usuários
+ */
 void SistemaClinica::cadastrarUsuario() {
     system("clear");
     string nome;
@@ -477,6 +525,9 @@ void SistemaClinica::cadastrarUsuario() {
 
 };
 
+/**
+ * Remove usuários
+ */
 void SistemaClinica::removerUsuario() {
 
 }
