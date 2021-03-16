@@ -20,6 +20,7 @@ SistemaClinica::SistemaClinica(const SistemaClinica& orig) {
 
 SistemaClinica::~SistemaClinica() {
     this->fileHelper.salvarPagamentoConta(this->contas);
+    this->fileHelper.salvarPagamentoConsulta(this->consultas);
 }
 
 void SistemaClinica::initSistema() {
@@ -141,6 +142,7 @@ void SistemaClinica::executarAcaoMenu(string acao) {
         this->initGerenciamentoUsuariosScreen();
     } else {
         this->fileHelper.salvarPagamentoConta(this->contas);
+        this->fileHelper.salvarPagamentoConsulta(this->consultas);
     }
 
 }
@@ -319,8 +321,12 @@ void SistemaClinica::listaConsultasRecebidas() {
     cout << "=============================================" << endl;
     cout << "Digite a data de início (0 -> mostra todos os registros) - formato: dd/mm/yyyy: ";
     cin >> dtInicio;
-    cout << "Digite a data fim - formato: dd/mm/yyyy: ";
-    cin >> dtFim;
+    if (dtInicio != "0") {
+        cout << "Digite a data fim - formato: dd/mm/yyyy: ";
+        cin >> dtFim;
+    } else {
+        dtFim = "01/01/1994";
+    }
     time_t dtInicioTm;
     time_t dtFimTm;
 
@@ -328,7 +334,7 @@ void SistemaClinica::listaConsultasRecebidas() {
     dtFimTm = to_time_t(dtFim, false, "%d/%m/%Y");
 
     for (auto const& consulta : this->consultas) {
-        if (dtInicioTm <= consulta.first && dtFimTm >= consulta.first) {
+        if ((dtInicioTm <= consulta.first && dtFimTm >= consulta.first) || dtInicio == "0") {
             cout << "- Dt: " << consulta.second->getData()
                     << " | " << consulta.second->getNomeCliente() <<
                     " | R$" << consulta.second->getValor() << endl;

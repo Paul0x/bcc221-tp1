@@ -26,6 +26,7 @@
 #include <functional>
 #include <typeinfo>
 #include <utils.h>
+#include <map>
 #include <iomanip>
 #include <fstream>
 #ifdef __cplusplus__
@@ -49,6 +50,8 @@ public:
     void salvarPontoFuncionario(vector<std::shared_ptr<RegistroPonto>> folhaPonto, int codUsuario);
     vector<std::shared_ptr<RegistroPagamentoConta>> buscarPagamentoConta();
     void salvarPagamentoConta(vector<std::shared_ptr<RegistroPagamentoConta>> contas);
+    map<time_t, RegistroPagamentoConsulta*> buscarPagamentoConsulta();
+    void salvarPagamentoConsulta(map<time_t, RegistroPagamentoConsulta*> consultas);
     
 private:
 };

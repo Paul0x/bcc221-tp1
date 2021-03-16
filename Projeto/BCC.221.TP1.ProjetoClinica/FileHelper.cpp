@@ -11,6 +11,8 @@
  * Created on March 11, 2021, 8:22 AM
  */
 
+#include <map>
+
 #include "FileHelper.h"
 
 FileHelper::FileHelper() {
@@ -166,7 +168,6 @@ void FileHelper::salvarAgendaEspecialista(vector<std::shared_ptr<RegistroAgenda>
 
 }
 
-
 vector<std::shared_ptr<RegistroPonto>> FileHelper::buscarPontoFuncionario(int codUsuario) {
     vector<std::shared_ptr < RegistroPonto>> folhaPonto;
 
@@ -215,7 +216,6 @@ void FileHelper::salvarPontoFuncionario(vector<std::shared_ptr<RegistroPonto>> f
 
 }
 
-
 vector<std::shared_ptr<RegistroPagamentoConta>> FileHelper::buscarPagamentoConta() {
     vector<std::shared_ptr < RegistroPagamentoConta>> contas;
 
@@ -263,4 +263,54 @@ void FileHelper::salvarPagamentoConta(vector<std::shared_ptr<RegistroPagamentoCo
     }
     contasFile.close();
 
+}
+
+map<time_t, RegistroPagamentoConsulta*> FileHelper::buscarPagamentoConsulta() {
+    map<time_t, RegistroPagamentoConsulta*> consultas;
+
+    fstream consultasFile;
+    string fileName = "consultas.dat";
+    consultasFile.open(fileName, ios::in | ios::out);
+    if (!consultasFile) {
+        consultasFile.open(fileName, ios::out);
+        consultasFile.close();
+        consultasFile.open(fileName, ios::in | ios::out);
+    }
+    RegistroPagamentoConsulta consultaObj;
+    consultasFile.seekg(0);
+    consultasFile.read(reinterpret_cast<char *> (&consultaObj),
+            sizeof ( RegistroPagamentoConsulta));
+    while (!consultasFile.eof()) {
+        RegistroPagamentoConsulta reg;
+        reg.setData(consultaObj.getData());
+        reg.setNomeCliente(consultaObj.getNomeCliente());
+        reg.setDataTimestamp(consultaObj.getDataTimestamp());
+        reg.setValor(consultaObj.getValor());
+        consultas.insert(make_pair(reg.getDataTimestamp(), &reg));
+        consultasFile.read(reinterpret_cast<char *> (&consultaObj),
+                sizeof ( RegistroPagamentoConsulta));
+    }
+    consultasFile.close();
+    return consultas;
+
+}
+
+void FileHelper::salvarPagamentoConsulta(map<time_t, RegistroPagamentoConsulta*> consultas) {
+    fstream consultasFile;
+    string fileName = "consultas.dat";
+    consultasFile.open(fileName, std::ofstream::out | std::ofstream::trunc);
+    consultasFile.seekg(0, ios::end);
+    // Grava novo usuário
+    for (auto const& consulta : consultas) {
+
+        RegistroPagamentoConsulta reg;
+        reg.setData(consulta.second->getData());
+        reg.setDataTimestamp(consulta.second->getDataTimestamp());
+        reg.setNomeCliente(consulta.second->getNomeCliente());
+        reg.setValor(consulta.second->getValor());
+        consultasFile.write(reinterpret_cast<const char *> (&reg),
+                sizeof ( RegistroPagamentoConsulta));
+    }
+
+    consultasFile.close();
 }
